@@ -12,4 +12,4 @@ socketIO.attach(server, corsOptions);
 
 server.listen(3001, () => {
     console.log('server on');
-})
+});
