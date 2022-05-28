@@ -1,33 +1,52 @@
 import { useEffect, useRef, useState } from 'react';
-import airplane from '../Assets/airplane.png';
-import snowman from '../Assets/snowman.png';
-const Character = ({backgroundCoordinate, userInfo, socketId})=>{
+const direct = {
+  up: 32 * 6,
+  down: 0,
+  left: 32 * 3,
+  right: 32 * 9,
+};
+
+const run = {
+  mid: 0,
+  left: 32,
+  right: 32 * 2,
+};
+const dance = {
+  leftUp: 32 * 12,
+  rightMid: 32 * 13,
+  rightUp: 32 * 14,
+  leftMid: 32 * 15,
+};
+
+const Character = ({socketId, users, marginBackground,move })=>{
     const characterCanvas = useRef(null);
-    const [coordinate,setCoordinate] = useState({x: window.innerHeight/2 ,y:window.innerWidth/2});
+
+    const changeMotion = (direction, state) =>
+    (dance[state] ?? direct[direction] + run[state]);
+
     const [characterImg,setCharacterImg] = useState();
-    
     
     useEffect(()=>{
       setCharacterImg(new Image());
     },[]);
   
-    
-
     useEffect(() => {
       const actx = characterCanvas.current.getContext('2d');
       actx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      Object.entries(userInfo).map(([key,{x,y}])=>{
+      Object.entries(users).map(([key,{x,y,direction,state}])=>{
         if(key !== socketId) {
           if(characterImg === undefined) return;
-          characterImg.src = airplane;
-          actx?.drawImage(characterImg, 0, 0, 1411, 1164,  window.innerWidth/2+userInfo[key].x-userInfo[socketId].x, window.innerHeight/2+userInfo[key].y-userInfo[socketId].y, 130, 90);
+          characterImg.src = '/Assets/snowman.png';
+
+          actx?.drawImage(characterImg,changeMotion(direction,state), 0, 32, 32,  window.innerWidth/2+x-users[socketId].x, window.innerHeight/2+y-users[socketId].y, 50, 50);
         } else {
           if(characterImg === undefined) return;
-          characterImg.src = airplane;
-          actx?.drawImage(characterImg, 0, 0, 1411, 1164, window.innerWidth/2, window.innerHeight/2, 130, 90);
+          characterImg.src = '/Assets/snowman.png';
+       
+          actx?.drawImage(characterImg, changeMotion(direction,state), 0, 32, 32, window.innerWidth/2, window.innerHeight/2, 50, 50);
         }
       })
-    }, [characterImg, backgroundCoordinate, userInfo]);
+    }, [characterImg, users]);
   
     
     return <canvas ref={characterCanvas} width={window.innerWidth} height={window.innerHeight} className='characterCanvas' />

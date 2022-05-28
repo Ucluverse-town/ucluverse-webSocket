@@ -47,7 +47,7 @@
   display: block;
   max-width: initial;
   max-height: initial;
-  background-color: black;
+  /* background-color: black; */
 }
 
 .characterCanvas {

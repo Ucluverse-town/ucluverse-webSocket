@@ -1,33 +1,49 @@
-import { useEffect, useRef, useState } from 'react';
-import map from '../Assets/testMap.png';
-const Background = ({backgroundCoordinate})=>{
-    const backgroundCanvas = useRef(null);
-    const [backgroundImg,setBackgroundImg] = useState();
 
-    useEffect(()=>{
-        setBackgroundImg(new Image());
-      },[]);
 
-      useEffect(()=>{
-        const ctx = backgroundCanvas.current.getContext('2d');
-        ctx !== null && ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        if(backgroundImg === undefined)return;
-        // background가 브라우저 끝에 닿았을 때는 움직이지 않도록 해야함.
-        ctx?.drawImage(backgroundImg, backgroundCoordinate.x, backgroundCoordinate.y, window.innerWidth, window.innerHeight, 0, 0, window.innerWidth, window.innerHeight);
-      },[backgroundImg,backgroundCoordinate]);
+import { useRef, useEffect } from 'react';
 
-      useEffect(() => {
-        const ctx = backgroundCanvas.current.getContext('2d');
-        if(backgroundImg === undefined)return;
-        backgroundImg.src = map;
-        backgroundImg.onload = () => {
-          // ctx?.drawImage(img, 150, 350, window.innerWidth, window.innerHeight, 0, 0, window.innerWidth, window.innerHeight);
-          ctx?.drawImage(backgroundImg, 0, 0, window.innerWidth, window.innerHeight, 0, 0, window.innerWidth, window.innerHeight);
-        };
-      }, [backgroundImg]);
- 
-    return  <canvas ref={backgroundCanvas} width={window.innerWidth} height={window.innerHeight} className='backgroundCanvas' />
-    
-}
+
+const Background = ({ marginBackground }) => {
+  const canvasBackgroundRef = useRef(null);
+  const background = new Image();
+
+  useEffect(() => {
+    const context = (canvasBackgroundRef.current)?.getContext('2d');
+    background.src = '/Assets/testMap.png';
+    background.onload = () => {
+      context?.drawImage(
+        background,
+        -marginBackground.left / 2,
+        -marginBackground.top / 2,
+        window.innerWidth,
+        window.innerHeight,
+        0,
+        0,
+        window.innerWidth * 2,
+        window.innerHeight * 2,
+      );
+    };
+  });
+
+  useEffect(() => {
+    const context = (canvasBackgroundRef.current)?.getContext('2d');
+    context !== null && context.clearRect(0, 0, window.screen.width, window.screen.height);
+    context?.drawImage(
+      background,
+      -marginBackground.left / 2,
+      -marginBackground.top / 2,
+      window.innerWidth,
+      window.innerHeight,
+      0,
+      0,
+      window.innerWidth * 2,
+      window.innerHeight * 2,
+    );
+  }, [marginBackground]);
+
+  return (
+      <canvas width={window.innerWidth} height={window.innerHeight} ref={canvasBackgroundRef} className='backgroundCanvas'/>
+  );
+};
 
 export default Background;
