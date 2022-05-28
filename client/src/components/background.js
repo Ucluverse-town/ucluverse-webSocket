@@ -12,6 +12,7 @@ const Background = ({backgroundCoordinate})=>{
         const ctx = backgroundCanvas.current.getContext('2d');
         ctx !== null && ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         if(backgroundImg === undefined)return;
+        // background가 브라우저 끝에 닿았을 때는 움직이지 않도록 해야함.
         ctx?.drawImage(backgroundImg, backgroundCoordinate.x, backgroundCoordinate.y, window.innerWidth, window.innerHeight, 0, 0, window.innerWidth, window.innerHeight);
       },[backgroundImg,backgroundCoordinate]);
 
