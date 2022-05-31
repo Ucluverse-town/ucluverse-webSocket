@@ -36,7 +36,7 @@ const Chat = (socketId) => {
         </div>
         <form claasName="formStyle" onSubmit={handleSubmit}>
             <input placeholder="Insert whatever" />
-            <button>SEND</button>
+            <button>😎</button>
         </form>
     </div>
 }
