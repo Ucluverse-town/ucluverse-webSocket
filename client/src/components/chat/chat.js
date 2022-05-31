@@ -6,6 +6,9 @@ const Chat = (socketId) => {
     const [receivedChatData, setReceivedChatData] = useState({ socketId: '', message: '' });
     const [chatHtml, setChatHtml] = useState('');
 
+    
+
+
     useEffect(() => {
         socket.on('RECEIVE_MESSAGE', (chatData) => {
             setReceivedChatData(chatData);
@@ -17,6 +20,11 @@ const Chat = (socketId) => {
     useEffect(() => {
         
     }, [receivedChatData]);
+
+    useEffect(() => {
+        const autoScroll = document.querySelector(".chatStyle"); 
+        autoScroll.scrollTop = autoScroll.scrollHeight;
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();        
@@ -31,6 +39,9 @@ const Chat = (socketId) => {
     }
 
     return <div className="chat chatBlockStyle">
+        <div className="chatTitle">
+            <h2>Chat</h2>
+        </div>
         <div className="chatContainer">
             <div className="chatStyle" dangerouslySetInnerHTML={{__html:chatHtml}} />
         </div>

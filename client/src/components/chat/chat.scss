@@ -11,7 +11,7 @@
     height : 100vh;
     left : calc(100vw - 350px);
     top : 0px;
-    background-color : #3a1c54;
+    background-color : #2d1646;
 
     form {
         width : 85%;
@@ -38,13 +38,21 @@
         }
     
         button {
-            padding : .5rem .8rem;
+            padding : 0 .8rem;
             border-radius : 5px;
             font-size : 20px;
             background-color : #73578b;
-            border-color : #4a385a;
+            border-color : #73578b;
         }
     }
+}
+
+// Title
+.chatTitle {
+    width : 85%;
+    margin : 0 auto;
+    padding-top : 1rem;
+    color : #ddd;
 }
 
 //채팅 log Container
@@ -99,6 +107,7 @@
         font-size : 1.1rem;
         font-weight : 500;
         padding : .5rem 1rem .2rem;
+        color : #e7d8b4;
     }
 
     // 채팅 내용
@@ -111,7 +120,6 @@
 
 // 입력 log
 .formStyle {
-    background-color : yellow;
     position: "relative";
     top : calc(100vh - 30px);
     left : calc(100vw - 1450px);
