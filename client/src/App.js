@@ -6,7 +6,7 @@ import Background from './components/background';
 import Character from './components/character';
 import defaultMapSetting from './libs/defaultMapSetting';
 import keyboardEvent from './libs/keyboardEvent';
-import Chat from './components/chat';
+import Chat from './components/chat/chat';
 
 function App() {
   const [users, setUsers] = useState({});
@@ -35,7 +35,7 @@ function App() {
     const handleMove = document;
 
     socket.emit('JOIN_ROOM', {  id: socket.id, cId: 0 }, (userData) => setUser(userData));
-    socket.on('makeRoomClient', ( RoomUser) => setUsers(RoomUser));
+    socket.on('makeRoomClient', (RoomUser) => setUsers(RoomUser));
 
     handleMove.addEventListener('keydown', (event) => {
       if (Object.keys(keyboardEvent.direction).includes(event.code)) {
