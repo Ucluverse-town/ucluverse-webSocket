@@ -49,7 +49,7 @@ const Character = ({socketId, users, marginBackground,move })=>{
     }, [characterImg, users]);
   
     
-    return <canvas ref={characterCanvas} width={window.innerWidth} height={window.innerHeight} className='characterCanvas' />
+    return <canvas ref={characterCanvas} width={window.innerWidth-350} height={window.innerHeight} className='characterCanvas' />
 }
 
 export default Character;

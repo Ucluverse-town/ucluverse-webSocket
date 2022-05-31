@@ -6,6 +6,7 @@ import Background from './components/background';
 import Character from './components/character';
 import defaultMapSetting from './libs/defaultMapSetting';
 import keyboardEvent from './libs/keyboardEvent';
+import Chat from './components/chat';
 
 function App() {
   const [users, setUsers] = useState({});
@@ -28,6 +29,7 @@ function App() {
   const [marginBackground, setMarginBackground] = useState({ top, left });
   const [tempBackground, setTempBackground] = useState({ top, left });
   const [background, setBackground] = useState({ top, left });
+  const [chatData, setChatData] = useState({ socketId: '', message: '' });
 
   useEffect(() => {
     const handleMove = document;
@@ -71,8 +73,10 @@ function App() {
   
   return (
     <div className="App">
+      <Chat socketId={socketId} />
       <Background marginBackground={marginBackground} />
       <Character socketId={socketId} users={users} marginBackground={ marginBackground } move={move}/>
+      
     </div>
   );
 }

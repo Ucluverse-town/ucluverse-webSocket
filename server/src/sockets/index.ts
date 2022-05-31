@@ -43,6 +43,12 @@ interface IUserData {
   direction: string;
   state: string;
 }
+
+interface IChatData {
+    socketId: string;
+    message: string;
+}
+
 const code = GATHER_ROOM_CODE;
 let RoomList: any = {};
 let RoomUser: any = {};
@@ -160,20 +166,24 @@ RoomUser[code] = {};
         }
       });
   
-      socket.on(TYPE.SEND_MESSAGE, (chat: IChat) => {
-        const { status } = chat;
-        if (status === "Everyone") {
-          socket.broadcast.emit(TYPE.RECEIVE_MESSAGE, chat);
-        } else if (status === "Nearby") {
-          findAdjacentUserList(
-            RoomUser[GATHER_ROOM_CODE][socket.id],
-          ).map((element: string) =>
-            socketIO.to(element).emit(TYPE.RECEIVE_MESSAGE, chat)
-          );
-        } else {
-          socket.to(status).emit(TYPE.RECEIVE_MESSAGE, chat);
-        }
-      });
+    //   socket.on(TYPE.SEND_MESSAGE, (chat: IChat) => {
+    //     const { status } = chat;
+    //     if (status === "Everyone") {
+    //       socket.broadcast.emit(TYPE.RECEIVE_MESSAGE, chat);
+    //     } else if (status === "Nearby") {
+    //       findAdjacentUserList(
+    //         RoomUser[GATHER_ROOM_CODE][socket.id],
+    //       ).map((element: string) =>
+    //         socketIO.to(element).emit(TYPE.RECEIVE_MESSAGE, chat)
+    //       );
+    //     } else {
+    //       socket.to(status).emit(TYPE.RECEIVE_MESSAGE, chat);
+    //     }
+    //   });
+      socket.on(TYPE.SEND_MESSAGE, (chatData: IChatData) => {
+          console.log(chatData);
+          socketIO.emit(TYPE.RECEIVE_MESSAGE, (chatData));
+      })
       socket.on("disconnect", () => {
         console.log("disconnect", socket.id);
         delete RoomUser[code][socket.id];

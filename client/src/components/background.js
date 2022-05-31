@@ -42,7 +42,7 @@ const Background = ({ marginBackground }) => {
   }, [marginBackground]);
 
   return (
-      <canvas width={window.innerWidth} height={window.innerHeight} ref={canvasBackgroundRef} className='backgroundCanvas'/>
+      <canvas width={window.innerWidth-350} height={window.innerHeight} ref={canvasBackgroundRef} className='backgroundCanvas'/>
   );
 };
 
