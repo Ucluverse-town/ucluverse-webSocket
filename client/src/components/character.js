@@ -43,7 +43,13 @@ const Character = ({socketId, users, marginBackground,move })=>{
           if(characterImg === undefined) return;
           characterImg.src = '/Assets/snowman.png';
        
-          actx?.drawImage(characterImg, changeMotion(direction,state), 0, 32, 32, window.innerWidth/2, window.innerHeight/2, 50, 50);
+          if(users[socketId].x < 760 || users[socketId].x > 2640 || users[socketId].y < 1160 || users[socketId].y > 3560){
+            actx?.drawImage(characterImg, changeMotion(direction,state), 0, 32, 32, window.innerWidth/2, window.innerHeight/2, 50, 50);
+          } else {
+            actx?.drawImage(characterImg, changeMotion(direction,state), 0, 32, 32, window.innerWidth/2, window.innerHeight/2, 50, 50);
+          }
+          
+          
         }
       })
     }, [characterImg, users]);
